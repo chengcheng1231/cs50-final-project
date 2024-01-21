@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block main %}
+<form action="/group" method="post">
+    <div class="d-inline-flex p-2">
+        <div class="mb-3 mx-2">
+            <select class="form-select" aria-label="Default select example" name="shopid">
+                <option selected disabled>>Select Shop</option>
+                {% for shop in shops %}
+                <option value="{{ shop.id }}">{{ shop.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3 mx-2">
+            <input
+                autocomplete="off"
+                autofocus
+                class="form-control mx-auto w-auto"
+                id="date"
+                name="mealdate"
+                placeholder="Meal Date"
+                type="date"
+            />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Launch Group Order</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Time</th>
+                <th class="text-start">Shop</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td class="text-start">{{ record.time }}</td>
+                <td class="text-start">{{ record.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+{% endblock %}

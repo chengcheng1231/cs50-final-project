@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block main %}
+<form action="/new-meal" method="post">
+    <div class="d-inline-flex p-2">
+        <div class="mb-3 mx-2">
+            <select class="form-select" aria-label="Default select example" name="shopid">
+                <option selected disabled>>Select Shop</option>
+                {% for shop in shops %}
+                <option value="{{ shop.id }}">{{ shop.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3 mx-2">
+            <input
+                autocomplete="off"
+                autofocus
+                class="form-control mx-auto w-auto"
+                id="mealname"
+                name="mealname"
+                placeholder="Meal Name"
+                type="text"
+            />
+        </div>
+        <div class="mb-3 mx-2">
+            <input
+                autocomplete="off"
+                autofocus
+                class="form-control mx-auto w-auto"
+                id="mealprice"
+                name="mealprice"
+                placeholder="Meal Price"
+                type="number"
+            />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Post New Meal</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Shops</th>
+                <th class="text-start">Meals</th>
+                <th class="text-start">Prices</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meal in meals %}
+            <tr>
+                <td class="text-start">{{ meal.shop_name }}</td>
+                <td class="text-start">{{ meal.name }}</td>
+                <td class="text-start">{{ meal.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.html" %} {% block title %} Log In {% endblock %} {% block main %}
+<form action="/" method="post">
+    <img class="mb-4" src="/static/images/drinking.png" alt="" width="200" height="200" />
+    {% if today_order|length > 0 %}
+    <p>Today's Shop is: {{ today_order.name }}</p>
+
+    {% if user_meal_records|length > 0 %}
+    <p>Today you have ordered: {{ user_meal_records[0].name }}, the price is: {{ user_meal_records[0].price }}</p>
+    {% else %}
+    <p>You have not ordered yet.</p>
+    {% endif %} {% endif %} {% if today_order|length == 0 %}
+    <p>Today is not a group order day.</p>
+    {% endif %}
+    <div class="d-inline-flex p-2">
+        <div class="mb-3 mx-2">
+            <select class="form-select" aria-label="Default select example" name="mealId">
+                <option selected disabled>>Select Meal</option>
+                {% for meal in meals %}
+                <option value="{{ meal.id }}">{{ meal.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Select Meal</button>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Meals</th>
+                <th class="text-start">Prices</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meal in meals %}
+            <tr>
+                <td class="text-start">{{ meal.name }}</td>
+                <td class="text-start">{{ meal.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+{% endblock %}
